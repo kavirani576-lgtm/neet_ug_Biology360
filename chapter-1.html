@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1: The Living World - NEET UG Biology 360</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .locked-content {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .locked-content::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white shadow-lg z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-dna text-blue-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">NEET UG Biology 360</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
+                    <a href="ncert-notes-full.html" class="text-blue-600 font-semibold">NCERT Notes</a>
+                    <a href="mock-test-full.html" class="text-gray-700 hover:text-blue-600 transition-colors">Mock
+                        Tests</a>
+                    <a href="mcq-questions-full.html" class="text-gray-700 hover:text-blue-600 transition-colors">MCQ
+                        Questions</a>
+                    <a href="diagram-booklet-full.html"
+                        class="text-gray-700 hover:text-blue-600 transition-colors">Diagrams</a>
+                    <a href="pricing.html" class="text-gray-700 hover:text-blue-600 transition-colors">Pricing</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button
+                        class="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors">
+                        Login
+                    </button>
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white pt-20 pb-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                    <i class="fas fa-book-open mr-3"></i>Chapter 1: The Living World
+                </h1>
+                <p class="text-xl mb-8 max-w-3xl mx-auto">
+                    Characteristics of living organisms, taxonomy, classification systems, and binomial nomenclature
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                        <i class="fas fa-file-pdf mr-2"></i>
+                        <span class="font-semibold">25 Pages</span>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                        <i class="fas fa-image mr-2"></i>
+                        <span class="font-semibold">15 Diagrams</span>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                        <i class="fas fa-history mr-2"></i>
+                        <span class="font-semibold">10 PYQs</span>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <div class="text-3xl font-bold mb-2">Access This Chapter</div>
+                    <div class="text-xl mb-4">Complete notes + diagrams + previous year questions</div>
+                    <div class="flex items-center gap-4 justify-center">
+                        <div class="text-4xl font-bold">₹49</div>
+                        <button onclick="purchaseChapter()"
+                            class="px-8 py-3 bg-yellow-400 text-gray-800 rounded-lg hover:bg-yellow-500 font-bold text-lg">
+                            <i class="fas fa-shopping-cart mr-2"></i>Buy Chapter 1
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topics Covered -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Topics Covered</h2>
+                <p class="text-lg text-gray-600">Complete coverage of Chapter 1 syllabus</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-blue-50 rounded-lg p-6">
+                    <h3 class="text-xl font-bold text-blue-800 mb-3">Characteristics of Living Organisms</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• Growth and reproduction</li>
+                        <li>• Consciousness and response to stimuli</li>
+                        <li>• Metabolism and cellular organization</li>
+                        <li>• Ability to self-replicate</li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 rounded-lg p-6">
+                    <h3 class="text-xl font-bold text-green-800 mb-3">Taxonomy</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• Definition and importance</li>
+                        <li>• Taxonomic categories</li>
+                        <li>• Taxonomic hierarchy</li>
+                        <li>• Modern classification systems</li>
+                    </ul>
+                </div>
+                <div class="bg-purple-50 rounded-lg p-6">
+                    <h3 class="text-xl font-bold text-purple-800 mb-3">Classification Systems</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• Two-kingdom system</li>
+                        <li>• Three-kingdom system</li>
+                        <li>• Four-kingdom system</li>
+                        <li>• Five-kingdom system</li>
+                    </ul>
+                </div>
+                <div class="bg-yellow-50 rounded-lg p-6">
+                    <h3 class="text-xl font-bold text-yellow-800 mb-3">Binomial Nomenclature</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• Rules of nomenclature</li>
+                        <li>• Scientific naming</li>
+                        <li>• Examples and practice</li>
+                        <li>• Importance in biology</li>
+                    </ul>
+                </div>
+                <div class="bg-red-50 rounded-lg p-6">
+                    <h3 class="text-xl font-bold text-red-800 mb-3">Previous Year Questions</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• NEET 2023 questions</li>
+                        <li>• NEET 2022 questions</li>
+                        <li>• NEET 2021 questions</li>
+                        <li>• Important repeated questions</li>
+                    </ul>
+                </div>
+                <div class="bg-indigo-50 rounded-lg p-6">
+                    <h3 class="text-xl font-bold text-indigo-800 mb-3">Important Diagrams</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• Classification hierarchy</li>
+                        <li>• Five kingdom classification</li>
+                        <li>• Taxonomic categories</li>
+                        <li>• Binomial nomenclature examples</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Preview -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Chapter Content</h2>
+                <p class="text-lg text-gray-600">Get a glimpse of our comprehensive study material</p>
+            </div>
+            <div class="bg-white rounded-lg p-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Study Notes</h3>
+                        <div class="locked-content">
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h4 class="font-semibold text-gray-700 mb-2">Characteristics of Living Organisms</h4>
+                                <p class="text-gray-600 mb-4">Living organisms exhibit certain characteristics that
+                                    distinguish them from non-living things...</p>
+                                <div class="text-center text-white">
+                                    <i class="fas fa-lock text-4xl mb-3"></i>
+                                    <p class="font-semibold">Purchase to Access Full Content</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="locked-content mt-4">
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h4 class="font-semibold text-gray-700 mb-2">Taxonomic Categories</h4>
+                                <p class="text-gray-600 mb-4">Taxonomy involves classification of organisms into
+                                    hierarchical categories...</p>
+                                <div class="text-center text-white">
+                                    <i class="fas fa-lock text-4xl mb-3"></i>
+                                    <p class="font-semibold">Purchase to Access Full Content</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Diagrams & PYQs</h3>
+                        <div class="locked-content">
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h4 class="font-semibold text-gray-700 mb-2">Important Diagrams</h4>
+                                <img src="https://placehold.co/400x300/4F46E5/FFFFFF?text=Chapter+1+Diagrams"
+                                    alt="Chapter 1 Diagrams" class="w-full rounded-lg">
+                                <div class="text-center text-white mt-4">
+                                    <i class="fas fa-lock text-4xl mb-3"></i>
+                                    <p class="font-semibold">Purchase to Access Diagrams</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="locked-content mt-4">
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h4 class="font-semibold text-gray-700 mb-2">Previous Year Questions</h4>
+                                <div class="space-y-3">
+                                    <div class="border-l-4 border-blue-500 pl-4">
+                                        <p class="font-semibold">NEET 2023 Q1</p>
+                                        <p class="text-gray-600">Which of the following is not a characteristic of
+                                            living organisms?</p>
+                                    </div>
+                                </div>
+                                <div class="text-center text-white mt-4">
+                                    <i class="fas fa-lock text-4xl mb-3"></i>
+                                    <p class="font-semibold">Purchase to Access All PYQs</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Chapters -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Other Chapters</h2>
+                <p class="text-lg text-gray-600">Explore other chapters from NCERT Biology</p>
+            </div>
+            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <a href="chapter-2.html" class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+                    <h3 class="font-semibold text-gray-800">Chapter 2</h3>
+                    <p class="text-gray-600 text-sm">Biological Classification</p>
+                </a>
+                <a href="chapter-3.html" class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+                    <h3 class="font-semibold text-gray-800">Chapter 3</h3>
+                    <p class="text-gray-600 text-sm">Plant Kingdom</p>
+                </a>
+                <a href="chapter-4.html" class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+                    <h3 class="font-semibold text-gray-800">Chapter 4</h3>
+                    <p class="text-gray-600 text-sm">Animal Kingdom</p>
+                </a>
+                <a href="chapter-5.html" class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+                    <h3 class="font-semibold text-gray-800">Chapter 5</h3>
+                    <p class="text-gray-600 text-sm">Morphology of Flowering Plants</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 NEET UG Biology 360. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Purchase Modal -->
+    <div id="purchaseModal"
+        class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+            <h3 class="text-xl font-bold mb-4">Purchase Chapter 1</h3>
+            <div class="space-y-4">
+                <div class="border rounded-lg p-4">
+                    <h4 class="font-semibold">Chapter 1: The Living World</h4>
+                    <p class="text-gray-600">Complete notes + diagrams + previous year questions</p>
+                    <p class="text-2xl font-bold text-blue-600">₹49</p>
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="proceedToPayment()"
+                        class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+                        Buy Now
+                    </button>
+                    <button onclick="closeModal()"
+                        class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function purchaseChapter() {
+            document.getElementById('purchaseModal').classList.remove('hidden');
+        }
+
+        function proceedToPayment() {
+            alert('Payment processing... This will integrate with UPI payment system.');
+            closeModal();
+        }
+
+        function closeModal() {
+            document.getElementById('purchaseModal').classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>

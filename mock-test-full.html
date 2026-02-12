@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Tests - NEET UG Biology 360</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .test-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .test-card:hover {
+            transform: translateY(-5px);
+            border-color: #F59E0B;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+        }
+        .locked-content {
+            position: relative;
+            overflow: hidden;
+        }
+        .locked-content::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .price-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #F59E0B;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 20;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            min-height: 100vh;
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white shadow-lg z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-dna text-blue-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">NEET UG Biology 360</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
+                    <a href="ncert-notes-full.html" class="text-gray-700 hover:text-blue-600 transition-colors">NCERT Notes</a>
+                    <a href="mcq-questions-full.html" class="text-gray-700 hover:text-blue-600 transition-colors">MCQ Questions</a>
+                    <a href="mock-test-full.html" class="text-orange-600 font-semibold">Mock Tests</a>
+                    <a href="diagram-booklet-full.html" class="text-gray-700 hover:text-blue-600 transition-colors">Diagrams</a>
+                    <a href="pricing.html" class="text-gray-700 hover:text-blue-600 transition-colors">Pricing</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors">
+                        Login
+                    </button>
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white pt-20 pb-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                        <i class="fas fa-clipboard-list mr-3"></i>Mock Tests
+                    </h1>
+                    <p class="text-xl mb-8">
+                        Practice with our comprehensive mock tests designed to simulate the actual NEET UG Biology exam. 
+                        Get detailed performance analysis and improve your score.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                            <i class="fas fa-clipboard-check mr-2"></i>
+                            <span class="font-semibold">20+ Tests</span>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                            <i class="fas fa-clock mr-2"></i>
+                            <span class="font-semibold">Timed Tests</span>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            <span class="font-semibold">Performance Analysis</span>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                            <i class="fas fa-trophy mr-2"></i>
+                            <span class="font-semibold">Leaderboard</span>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <div class="text-3xl font-bold mb-2">Get Complete Access</div>
+                        <div class="text-xl mb-4">All 20+ mock tests + analysis + solutions</div>
+                        <div class="flex items-center gap-4">
+                            <div class="text-4xl font-bold">₹599</div>
+                            <div class="text-lg line-through opacity-75">₹899</div>
+                        </div>
+                        <button onclick="purchaseComplete()" class="mt-4 px-8 py-3 bg-yellow-400 text-gray-800 rounded-lg hover:bg-yellow-500 font-bold text-lg">
+                            <i class="fas fa-shopping-cart mr-2"></i>Buy Complete Package
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img src="https://via.placeholder.com/600x500/F59E0B/FFFFFF?text=Mock+Tests+Collection" 
+                         alt="Mock Tests" 
+                         class="rounded-2xl shadow-2xl w-full floating">
+                    <div class="absolute -top-4 -right-4 bg-yellow-400 text-gray-800 px-4 py-2 rounded-lg font-bold transform rotate-3 shadow-lg">
+                        Limited Offer!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Why Choose Our Mock Tests?</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Comprehensive test preparation with real exam simulation and detailed analysis
+                </p>
+            </div>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-clipboard-check text-orange-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">20+ Tests</h3>
+                    <p class="text-gray-600">Comprehensive test series</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-clock text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Timed Tests</h3>
+                    <p class="text-gray-600">Real exam simulation</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-line text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Analysis</h3>
+                    <p class="text-gray-600">Detailed performance report</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-trophy text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Leaderboard</h3>
+                    <p class="text-gray-600">Compete with others</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Categories -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Test Categories</h2>
+                <p class="text-lg text-gray-600">Choose from different types of mock tests</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Full Syllabus Tests -->
+                <div class="test-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <div class="locked-content">
+                            <img src="https://via.placeholder.com/400x250/F59E0B/FFFFFF?text=Full+Syllabus" alt="Full Syllabus" class="w-full h-48 object-cover">
+                            <div class="flex items-center justify-center text-white">
+                                <div class="text-center">
+                                    <i class="fas fa-lock text-4xl mb-3"></i>
+                                    <p class="font-semibold">Purchase to Access</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-tag">₹99</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Full Syllabus Tests</h3>
+                        <p class="text-gray-600 mb-4">Complete NEET UG Biology syllabus tests with 180 questions each.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-500">
+                                <i class="fas fa-clipboard-list mr-1"></i> 5 Tests
+                            </div>
+                            <a href="mock-test/full-syllabus.html" class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
+                                Open Tests
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter-wise Tests -->
+                <div class="test-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <div class="locked-content">
+                            <img src="https://via.placeholder.com/400x250/F59E0B/FFFFFF?text=Chapter+Wise" alt="Chapter Wise" class="w-full h-48 object-cover">
+                            <div class="flex items-center justify-center text-white">
+                                <div class="text-center">
+                                    <i class="fas fa-lock text-4xl mb-3"></i>
+                                    <p class="font-semibold">Purchase to Access</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-tag">₹149</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Chapter-wise Tests</h3>
+                        <p class="text-gray-600 mb-4">Individual chapter tests to strengthen your weak areas.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-500">
+                                <i class="fas fa-clipboard-list mr-1"></i> 22 Tests
+                            </div>
+                            <a href="mock-test/chapter-wise.html" class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
+                                Open Tests
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Previous Year Papers -->
+                <div class="test-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <div class="locked-content">
+                            <img src="https://via.placeholder.com/400x250/F59E0B/FFFFFF?text=Previous+Year" alt="Previous Year" class="w-full h-48 object-cover">
+                            <div class="flex items-center justify-center text-white">
+                                <div class="text-center">
+                                    <i class="fas fa-lock text-4xl mb-3"></i>
+                                    <p class="font-semibold">Purchase to Access</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-tag">₹199</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Previous Year Papers</h3>
+                        <p class="text-gray-600 mb-4">NEET previous year question papers with detailed solutions.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-500">
+                                <i class="fas fa-clipboard-list mr-1"></i> 10 Papers
+                            </div>
+                            <a href="mock-test/previous-year.html" class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
+                                Open Tests
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic-wise Tests -->
+                <div class="test-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <div class="locked-content">
+                            <img src="https://via.placeholder.com/400x250/F59E0B/FFFFFF?text=Topic+Wise" alt="Topic Wise" class="w-full h-48 object-cover">
+                            <div class="flex items-center justify-center text-white">
+                                <div class="text-center">
+                                    <i class="fas fa-lock text-4xl mb-3"></i>
+                                    <p class="font-semibold">Purchase to Access</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-tag">₹129</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Topic-wise Tests</h3>
+                        <p class="text-gray-600 mb-4">Focused tests on specific topics for targeted preparation.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-500">
+                                <i class="fas fa-clipboard-list mr-1"></i> 15 Tests
+                            </div>
+                            <a href="mock-test/topic-wise.html" class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
+                                Open Tests
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speed Tests -->
+                <div class="test-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <div class="locked-content">
+                            <img src="https://via.placeholder.com/400x250/F59E0B/FFFFFF?text=Speed+Tests" alt="Speed Tests" class="w-full h-48 object-cover">
+                            <div class="flex items-center justify-center text-white">
+                                <div class="text-center">
+                                    <i class="fas fa-lock text-4xl mb-3"></i>
+                                    <p class="font-semibold">Purchase to Access</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-tag">₹79</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Speed Tests</h3>
+                        <p class="text-gray-600 mb-4">Time-based tests to improve your speed and accuracy.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-500">
+                                <i class="fas fa-clipboard-list mr-1"></i> 8 Tests
+                            </div>
+                            <a href="mock-test/speed-tests.html" class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
+                                Open Tests
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Difficulty-wise Tests -->
+                <div class="test-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <div class="locked-content">
+                            <img src="https://via.placeholder.com/400x250/F59E0B/FFFFFF?text=Difficulty+Wise" alt="Difficulty Wise" class="w-full h-48 object-cover">
+                            <div class="flex items-center justify-center text-white">
+                                <div class="text-center">
+                                    <i class="fas fa-lock text-4xl mb-3"></i>
+                                    <p class="font-semibold">Purchase to Access</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-tag">₹89</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Difficulty-wise Tests</h3>
+                        <p class="text-gray-600 mb-4">Tests categorized by difficulty level - Easy, Medium, Hard.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-500">
+                                <i class="fas fa-clipboard-list mr-1"></i> 6 Tests
+                            </div>
+                            <a href="mock-test/difficulty-wise.html" class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
+                                Open Tests
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 NEET UG Biology 360. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Purchase Modal -->
+    <div id="purchaseModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+            <h3 class="text-xl font-bold mb-4">Purchase Mock Tests</h3>
+            <div class="space-y-4">
+                <div class="border rounded-lg p-4">
+                    <h4 class="font-semibold">Complete Package</h4>
+                    <p class="text-gray-600">All 20+ tests + analysis + solutions</p>
+                    <p class="text-2xl font-bold text-orange-600">₹599</p>
+                </div>
+                <div class="border rounded-lg p-4">
+                    <h4 class="font-semibold">Individual Test</h4>
+                    <p class="text-gray-600">Access to selected test category</p>
+                    <p class="text-2xl font-bold text-blue-600">₹79-₹199</p>
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="proceedToPayment('complete')" class="flex-1 bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700">
+                        Buy Complete
+                    </button>
+                    <button onclick="closeModal()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function purchaseComplete() {
+            document.getElementById('purchaseModal').classList.remove('hidden');
+        }
+
+        function proceedToPayment(type) {
+            alert('Payment processing... This will integrate with UPI payment system.');
+            closeModal();
+        }
+
+        function closeModal() {
+            document.getElementById('purchaseModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

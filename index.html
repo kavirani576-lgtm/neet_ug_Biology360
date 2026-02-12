@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="browser-compatibility" content="edge,brave,chrome,firefox,safari">
+    <title>NEET UG Biology 360</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Browser Compatibility Polyfills -->
+    <script
+        src="https://polyfill.io/v3/polyfill.min.js?features=es6,fetch,IntersectionObserver,Promise,Object.assign"></script>
+    <script src="js/browser-compatibility.js"></script>
+    <link rel="stylesheet" href="css/browser-compatibility.css">
+    <style>
+        .animate-in {
+            opacity: 0;
+            transform: translateY(50px) rotateX(10deg);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+
+        .hero-animate {
+            opacity: 0;
+            transform: translateX(-100px) rotateY(20deg);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-animate.visible {
+            opacity: 1;
+            transform: translateX(0) rotateY(0);
+        }
+
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotateX(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotateX(2deg);
+            }
+        }
+
+        .gradient-shift {
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .glow {
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .glow:hover {
+            box-shadow: 0 0 30px rgba(79, 70, 229, 0.8);
+        }
+
+        .text-3d {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(79, 70, 229, 0.5);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-lg z-50 animate-in">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-dna text-blue-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">NEET UG Biology 360</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="#features" class="text-gray-700 hover:text-blue-600">Features</a>
+                    <a href="#courses" class="text-gray-700 hover:text-blue-600">Courses</a>
+                    <a href="#live-classes" class="text-gray-700 hover:text-blue-600">Live Classes</a>
+                    <a href="#about" class="text-gray-700 hover:text-blue-600">About</a>
+                    <a href="#contact" class="text-gray-700 hover:text-blue-600">Contact</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- Auth Buttons (shown when logged out) -->
+                    <div id="authButtons" class="flex items-center space-x-4">
+                        <a href="auth.html"
+                            class="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50">Login</a>
+                        <a href="auth.html"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 glow">Sign
+                            Up</a>
+                    </div>
+                    <!-- User Menu (shown when logged in) -->
+                    <div id="userMenu" class="hidden flex items-center space-x-4">
+                        <a href="dashboard.html"
+                            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                            <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                        </a>
+                        <button onclick="logout()" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-screen text-white flex items-center pt-20"
+        style="background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="hero-animate">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                        Master NEET UG Biology with <span class="text-yellow-300">360° Learning</span>
+                    </h1>
+                    <p class="text-xl mb-8 text-white/90">
+                        Complete study material including NCERT notes, 2100+ MCQs, mock tests, and diagram booklets.
+                    </p>
+
+                    <!-- Feature Buttons Grid -->
+                    <div class="grid grid-cols-2 gap-4 mb-8 max-w-md">
+                        <a href="ncert-notes-full.html"
+                            class="bg-blue-600 rounded-lg p-4 text-center hover:bg-blue-700 transition-all cursor-pointer block text-white no-underline">
+                            <i class="fas fa-book text-2xl mb-2"></i>
+                            <div class="font-semibold">NCERT Notes</div>
+                        </a>
+                        <a href="mock-test-full.html"
+                            class="bg-orange-600 rounded-lg p-4 text-center hover:bg-orange-700 transition-all cursor-pointer block text-white no-underline">
+                            <i class="fas fa-clipboard-list text-2xl mb-2"></i>
+                            <div class="font-semibold">Mock Tests</div>
+                        </a>
+                        <a href="mcq-questions-full.html"
+                            class="bg-green-600 rounded-lg p-4 text-center hover:bg-green-700 transition-all cursor-pointer block text-white no-underline">
+                            <i class="fas fa-question-circle text-2xl mb-2"></i>
+                            <div class="font-semibold">MCQ Questions</div>
+                        </a>
+                        <a href="diagram-booklet-full.html"
+                            class="bg-purple-600 rounded-lg p-4 text-center hover:bg-purple-700 transition-all cursor-pointer block text-white no-underline">
+                            <i class="fas fa-image text-2xl mb-2"></i>
+                            <div class="font-semibold">Diagrams</div>
+                        </a>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-4 max-w-md">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-3 text-center">
+                            <i class="fas fa-users mb-1"></i>
+                            <div class="font-semibold text-sm">5000+ Students</div>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-3 text-center">
+                            <i class="fas fa-star mb-1"></i>
+                            <div class="font-semibold text-sm">4.8 Rating</div>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-3 text-center">
+                            <i class="fas fa-certificate mb-1"></i>
+                            <div class="font-semibold text-sm">Certified Content</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                        <!-- Medical student image -->
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop"
+                            alt="Medical Student" class="w-full h-auto object-cover"
+                            onerror="this.src='https://placehold.co/800x600/2C5282/FFFFFF?text=Medical+Student'">
+
+                        <!-- Text overlay -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-600/50 flex items-center justify-center">
+                            <div class="text-center">
+                                <h2 class="text-6xl font-bold mb-2">NEET</h2>
+                                <div class="bg-orange-500 px-8 py-3 inline-block">
+                                    <h3 class="text-4xl font-bold">UG 2026</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Badges -->
+                        <div
+                            class="absolute -top-4 -right-4 bg-yellow-400 text-gray-800 px-6 py-3 rounded-lg font-bold shadow-lg z-10">
+                            Target 2026!
+                        </div>
+                        <div
+                            class="absolute -bottom-4 -left-4 bg-green-500 text-white px-6 py-3 rounded-lg font-bold shadow-lg z-10">
+                            New Batch Open
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 animate-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 text-3d">
+                    Why Choose NEET UG Biology 360?
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    We provide everything you need to excel in NEET UG Biology
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 card-3d animate-in"
+                    style="animation-delay: 0.1s;">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-book text-blue-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">NCERT Notes</h3>
+                    <p class="text-gray-600">Complete chapter-wise notes with diagrams and previous year questions</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 card-3d animate-in"
+                    style="animation-delay: 0.2s;">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-question-circle text-green-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">2100+ MCQs</h3>
+                    <p class="text-gray-600">Practice questions with detailed solutions and explanations</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 card-3d animate-in"
+                    style="animation-delay: 0.3s;">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-clipboard-list text-orange-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Mock Tests</h3>
+                    <p class="text-gray-600">Full-length mock tests with performance analysis</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 card-3d animate-in"
+                    style="animation-delay: 0.4s;">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-image text-purple-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Diagram Booklet</h3>
+                    <p class="text-gray-600">High-quality labeled diagrams for visual learning</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 animate-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 text-3d">
+                    Our Premium Courses
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Comprehensive biology courses designed for 360/360 score
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- NCERT Notes -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 animate-in"
+                    style="animation-delay: 0.1s;">
+                    <div class="h-40 bg-blue-600 flex items-center justify-center">
+                        <i class="fas fa-book text-6xl text-white opacity-90"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">NCERT Notes</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Chapter-wise detailed notes with important points
+                            highlighted.</p>
+                        <ul class="space-y-1 mb-4 text-gray-500 text-sm">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>All Chapters</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Easy Language</li>
+                        </ul>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-2xl font-bold text-blue-600">₹999</span>
+                            <span class="text-sm text-gray-400 line-through">₹1999</span>
+                        </div>
+                        <a href="ncert-notes-full.html"
+                            class="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Explore Notes
+                        </a>
+                    </div>
+                </div>
+
+                <!-- MCQ Questions -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 animate-in"
+                    style="animation-delay: 0.2s;">
+                    <div class="h-40 bg-green-600 flex items-center justify-center">
+                        <i class="fas fa-question-circle text-6xl text-white opacity-90"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">2100+ MCQs</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Topic-wise practice questions with detailed solutions.</p>
+                        <ul class="space-y-1 mb-4 text-gray-500 text-sm">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Prev. Year Qs</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>High Yield</li>
+                        </ul>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-2xl font-bold text-green-600">₹1,299</span>
+                            <span class="text-sm text-gray-400 line-through">₹2499</span>
+                        </div>
+                        <a href="mcq-questions-full.html"
+                            class="block w-full bg-green-600 text-white text-center py-2 rounded-lg hover:bg-green-700 transition-colors">
+                            Practice MCQs
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mock Tests -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 animate-in"
+                    style="animation-delay: 0.3s;">
+                    <div class="h-40 bg-orange-600 flex items-center justify-center">
+                        <i class="fas fa-clipboard-list text-6xl text-white opacity-90"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Mock Tests</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Full syllabus mock tests based on latest NTA pattern.</p>
+                        <ul class="space-y-1 mb-4 text-gray-500 text-sm">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Real Exam Feel</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Performance Analysis</li>
+                        </ul>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-2xl font-bold text-orange-600">₹599</span>
+                            <span class="text-sm text-gray-400 line-through">₹999</span>
+                        </div>
+                        <a href="mock-test-full.html"
+                            class="block w-full bg-orange-600 text-white text-center py-2 rounded-lg hover:bg-orange-700 transition-colors">
+                            Take Test
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Diagram Booklet -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 animate-in"
+                    style="animation-delay: 0.4s;">
+                    <div class="h-40 bg-purple-600 flex items-center justify-center">
+                        <i class="fas fa-image text-6xl text-white opacity-90"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Diagram Booklet</h3>
+                        <p class="text-gray-600 mb-4 text-sm">All NCERT diagrams labeled and explained clearly.</p>
+                        <ul class="space-y-1 mb-4 text-gray-500 text-sm">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>HD Quality</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>Quick Revision</li>
+                        </ul>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-2xl font-bold text-purple-600">₹799</span>
+                            <span class="text-sm text-gray-400 line-through">₹1499</span>
+                        </div>
+                        <a href="diagram-booklet-full.html"
+                            class="block w-full bg-purple-600 text-white text-center py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            View Diagrams
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="live-classes" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 animate-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 text-3d">
+                    Weekly Live Class
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Free weekly live session with expert faculty and video chat doubt clearing
+                </p>
+            </div>
+
+            <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-8 animate-in"
+                style="animation-delay: 1.2s;">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-3xl font-bold text-gray-800 mb-4">Try a Free Live Class</h3>
+                        <p class="text-lg text-gray-600 mb-6">
+                            Experience our interactive live classes with expert faculty. Join a free demo session to see
+                            how our video chat doubt clearing works.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="joinLiveClass()"
+                                class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300 transform hover:scale-105">
+                                <i class="fas fa-video mr-2"></i>Join Free Demo
+                            </button>
+                            <button onclick="scheduleClass()"
+                                class="px-6 py-3 bg-white text-red-600 border-2 border-red-600 rounded-lg hover:bg-red-50 transition-all duration-300 transform hover:scale-105">
+                                <i class="fas fa-calendar-plus mr-2"></i>Schedule Class
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <img src="https://placehold.co/500x300/EF4444/FFFFFF?text=Live+Class+Demo" alt="Live Class Demo"
+                            class="rounded-xl shadow-2xl w-full">
+                        <div
+                            class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold animate-pulse">
+                            LIVE NOW
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="animate-in" style="animation-delay: 1.3s;">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 text-3d">
+                        About NEET UG Biology 360
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        We are dedicated to providing comprehensive biology education for NEET UG aspirants.
+                        Our mission is to help students achieve their medical dreams through quality study materials.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-6">
+                        With over 10 years of combined experience in medical education, we've designed our courses
+                        to provide comprehensive coverage of the NCERT syllabus while focusing on exam-relevant content.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Our platform has helped over 5000+ students secure admissions in top medical colleges across
+                        India.
+                    </p>
+                    <div class="grid grid-cols-3 gap-4 mt-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600 mb-2">10+</div>
+                            <div class="text-sm text-gray-600">Years Experience</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-600 mb-2">5000+</div>
+                            <div class="text-sm text-gray-600">Students Helped</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">98%</div>
+                            <div class="text-sm text-gray-600">Success Rate</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate-in" style="animation-delay: 1.4s;">
+                    <div class="card-3d">
+                        <img src="https://placehold.co/500x400/4F46E5/FFFFFF?text=About+NEET+Biology+360"
+                            alt="About NEET Biology 360" class="rounded-2xl shadow-2xl w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 animate-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 text-3d">
+                    Get In Touch
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Have questions? We're here to help you succeed in NEET UG Biology
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <div class="animate-in" style="animation-delay: 1.5s;">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-phone text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Phone</h4>
+                                <p class="text-gray-600">+91 98765 43210</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-envelope text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Email</h4>
+                                <p class="text-gray-600">info@neetbiology360.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Address</h4>
+                                <p class="text-gray-600">123 Education Street, Delhi, India</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-clock text-orange-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Support Hours</h4>
+                                <p class="text-gray-600">Mon-Sat: 9AM-8PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="animate-in" style="animation-delay: 1.6s;">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Send us a Message</h3>
+                    <form class="space-y-4" onsubmit="handleContactSubmit(event)">
+                        <div>
+                            <input type="text" id="contactName" placeholder="Your Name" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <input type="email" id="contactEmail" placeholder="Your Email" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <input type="tel" id="contactPhone" placeholder="Your Phone"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <textarea id="contactMessage" placeholder="Your Message" rows="4" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Social Media Section -->
+            <div class="mt-16 text-center animate-in" style="animation-delay: 1.7s;">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">Follow Us</h3>
+                <div class="flex justify-center space-x-6">
+                    <a href="#"
+                        class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-700 transition-colors transform hover:scale-110">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#"
+                        class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center text-white hover:bg-blue-500 transition-colors transform hover:scale-110">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#"
+                        class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center text-white hover:bg-pink-700 transition-colors transform hover:scale-110">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#"
+                        class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white hover:bg-red-700 transition-colors transform hover:scale-110">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#"
+                        class="w-12 h-12 bg-blue-700 rounded-full flex items-center justify-center text-white hover:bg-blue-800 transition-colors transform hover:scale-110">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/919876543210?text=Hi!%20I'm%20interested%20in%20NEET%20UG%20Biology%20360%20courses"
+        target="_blank"
+        class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 transform hover:scale-110 z-40 animate-bounce">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <button id="chatbotBtn"
+        class="fixed bottom-6 right-24 bg-blue-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-110 z-40">
+        <i class="fas fa-comments text-2xl"></i>
+    </button>
+
+    <!-- Chatbot Window -->
+    <div id="chatbotWindow" class="fixed bottom-24 right-6 w-96 h-[500px] bg-white rounded-lg shadow-2xl z-50 hidden">
+        <div class="bg-blue-600 text-white p-4 rounded-t-lg flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-robot text-xl"></i>
+                <span class="font-semibold">NEET Biology Assistant</span>
+            </div>
+            <button id="closeChatbot" class="text-white hover:text-gray-200">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="chatMessages" class="h-[380px] overflow-y-auto p-4 space-y-3">
+            <div class="bg-gray-100 rounded-lg p-3 max-w-[80%]">
+                <p class="text-sm">Hello! 👋 Welcome to NEET UG Biology 360!</p>
+                <p class="text-sm">How can I help you today?</p>
+            </div>
+        </div>
+        <div class="p-4 border-t">
+            <div class="flex space-x-2">
+                <input type="text" id="chatInput" placeholder="Type your message..."
+                    class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                <button id="sendMessage"
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="mt-2 flex flex-wrap gap-2">
+                <button
+                    class="quick-reply bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-200 transition-colors">
+                    Course Details
+                </button>
+                <button
+                    class="quick-reply bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-200 transition-colors">
+                    Pricing
+                </button>
+                <button
+                    class="quick-reply bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-200 transition-colors">
+                    Study Material
+                </button>
+                <button
+                    class="quick-reply bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-200 transition-colors">
+                    Contact Support
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <i class="fas fa-dna text-blue-400 text-2xl"></i>
+                <span class="text-xl font-bold">NEET UG Biology 360</span>
+            </div>
+            <p class="text-gray-400">Complete study material for NEET UG Biology preparation</p>
+            <p class="text-gray-400 mt-4">&copy; 2024 NEET UG Biology 360. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Browser Compatibility Check
+        function checkBrowserCompatibility() {
+            const isEdge = /Edg/i.test(navigator.userAgent);
+            const isBrave = /Brave/i.test(navigator.userAgent);
+            const isChrome = /Chrome/i.test(navigator.userAgent) && !isEdge;
+
+            console.log('Browser detected:', {
+                edge: isEdge,
+                brave: isBrave,
+                chrome: isChrome,
+                userAgent: navigator.userAgent
+            });
+
+            // Edge-specific fixes
+            if (isEdge) {
+                document.body.classList.add('edge-browser');
+                // Fix for Edge scrolling issues
+                document.documentElement.style.scrollBehavior = 'smooth';
+            }
+
+            // Brave-specific fixes
+            if (isBrave) {
+                document.body.classList.add('brave-browser');
+                // Fix for Brave ad-blocker conflicts
+                if (window.brave) {
+                    console.log('Brave browser detected with shields active');
+                }
+            }
+        }
+
+        // Initialize compatibility checks
+        checkBrowserCompatibility();
+
+        // IntersectionObserver with fallback for older browsers
+        function initializeScrollAnimations() {
+            if ('IntersectionObserver' in window) {
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.animate-in, .hero-animate').forEach(el => {
+                    observer.observe(el);
+                });
+            } else {
+                // Fallback for browsers without IntersectionObserver
+                document.querySelectorAll('.animate-in, .hero-animate').forEach(el => {
+                    el.classList.add('visible');
+                });
+            }
+        }
+
+        // Initialize animations
+        initializeScrollAnimations();
+
+        // Smooth scrolling with fallback
+        function initializeSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        if ('scrollBehavior' in document.documentElement.style) {
+                            target.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        } else {
+                            // Fallback for older browsers
+                            target.scrollIntoView();
+                        }
+                    }
+                });
+            });
+        }
+
+        initializeSmoothScrolling();
+
+        // Enhanced chatbot with browser compatibility
+        function initializeChatbot() {
+            const chatbotBtn = document.getElementById('chatbotBtn');
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            const closeChatbot = document.getElementById('closeChatbot');
+            const chatInput = document.getElementById('chatInput');
+            const sendMessage = document.getElementById('sendMessage');
+            const chatMessages = document.getElementById('chatMessages');
+
+            if (!chatbotBtn || !chatbotWindow) return;
+
+            chatbotBtn.addEventListener('click', () => {
+                chatbotWindow.classList.toggle('hidden');
+                // Focus input for better UX
+                setTimeout(() => chatInput && chatInput.focus(), 100);
+            });
+
+            closeChatbot.addEventListener('click', () => {
+                chatbotWindow.classList.add('hidden');
+            });
+
+            function addMessage(message, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `rounded-lg p-3 max-w-[80%] ${isUser ? 'bg-blue-600 text-white ml-auto' : 'bg-gray-100'}`;
+                messageDiv.innerHTML = `<p class="text-sm">${message}</p>`;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function sendUserMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    addMessage(message, true);
+                    chatInput.value = '';
+
+                    // Simulate bot response with delay
+                    setTimeout(() => {
+                        const responses = {
+                            'course': 'We offer 4 main courses: NCERT Notes (₹999), Mock Tests (₹599), MCQ Questions (₹1,299), and Diagram Booklet (₹799). Would you like details about any specific course?',
+                            'price': 'Our courses range from ₹599 to ₹1,299. We also offer a complete package at ₹2,999 (save ₹1,697). Check our pricing page for more details!',
+                            'study': 'Our study material includes NCERT notes, 2100+ MCQs, mock tests, and 500+ diagrams. All content is exam-focused and created by expert faculty.',
+                            'contact': 'You can reach us at +91 98765 43210 or info@neetbiology360.com. We\'re available 24/7 to help you!',
+                            'default': 'Thank you for your message! Our team will get back to you soon. You can also call us at +91 98765 43210 for immediate assistance.'
+                        };
+
+                        const lowerMessage = message.toLowerCase();
+                        let response = responses.default;
+
+                        if (lowerMessage.includes('course') || lowerMessage.includes('ncert') || lowerMessage.includes('notes')) {
+                            response = responses.course;
+                        } else if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('fee')) {
+                            response = responses.price;
+                        } else if (lowerMessage.includes('study') || lowerMessage.includes('material') || lowerMessage.includes('content')) {
+                            response = responses.study;
+                        } else if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('email')) {
+                            response = responses.contact;
+                        }
+
+                        addMessage(response);
+                    }, 1000);
+                }
+            }
+
+            sendMessage.addEventListener('click', sendUserMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.keyCode === 13) {
+                    sendUserMessage();
+                }
+            });
+
+            // Quick reply buttons
+            document.querySelectorAll('.quick-reply').forEach(button => {
+                button.addEventListener('click', () => {
+                    const text = button.textContent.trim();
+                    chatInput.value = text;
+                    sendUserMessage();
+                });
+            });
+        }
+
+        // Initialize chatbot
+        initializeChatbot();
+
+        // Enhanced contact form with browser compatibility
+        function handleContactSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const phone = document.getElementById('contactPhone').value;
+            const message = document.getElementById('contactMessage').value;
+
+            if (name && email && message) {
+                // Enhanced alert with better formatting
+                const successMessage = '✅ Message Sent Successfully!\n\nDear ' + name + ',\n\nThank you for contacting NEET UG Biology 360!\n\nWe have received your message and will get back to you within 24 hours.\n\nContact Details:\n• Email: ' + email + '\n• Phone: ' + (phone || 'Not provided') + '\n\nFor immediate assistance, call us at +91 98765 43210.\n\nBest regards,\nNEET UG Biology 360 Team';
+
+                alert(successMessage);
+
+                // Clear form
+                document.getElementById('contactName').value = '';
+                document.getElementById('contactEmail').value = '';
+                document.getElementById('contactPhone').value = '';
+                document.getElementById('contactMessage').value = '';
+            }
+        }
+
+        // Enhanced live class functions with browser compatibility
+        function joinLiveClass() {
+            const message = '🎥 Joining Live Class Demo!\n\nYou will be redirected to our live classroom.\n\nFeatures:\n• Live video interaction\n• Real-time doubt clearing\n• Screen sharing\n• Whiteboard collaboration';
+
+            if (confirm(message + '\n\nDo you want to continue?')) {
+                // Try to open in new tab with fallback
+                const newWindow = window.open('https://zoom.us/join', '_blank', 'noopener,noreferrer');
+                if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                    // Fallback for popup blockers
+                    window.location.href = 'https://zoom.us/join';
+                }
+            }
+        }
+
+        function scheduleClass() {
+            const name = prompt('Please enter your name:');
+            if (!name) return;
+
+            const email = prompt('Please enter your email:');
+            if (!email) return;
+
+            const phone = prompt('Please enter your phone number:');
+            if (!phone) return;
+
+            const successMessage = '✅ Class Scheduled Successfully!\n\nDear ' + name + ',\n\nYour free demo class has been scheduled.\n\nDetails:\n• Date: Next available slot\n• Time: 4:00 PM\n• Duration: 2 hours\n• Link: Will be sent to ' + email + '\n\nWe will also send a reminder to: ' + phone + '\n\nThank you for choosing NEET UG Biology 360!';
+
+            alert(successMessage);
+        }
+
+        // Enhanced chatbot button with better error handling
+        document.getElementById('chatbotBtn').addEventListener('click', function () {
+            const message = '💬 Chat Support\n\nHello! Welcome to NEET UG Biology 360!\n\nHow can I help you today?\n\n• Course Details\n• Pricing Information\n• Study Material\n• Technical Support\n\nYou can also reach us via WhatsApp or call us at +91 98765 43210';
+
+            alert(message);
+        });
+
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('NEET UG Biology 360 - Browser compatibility loaded');
+
+            // Add browser-specific CSS classes
+            document.body.classList.add('browser-compatible');
+
+            // Test for critical features
+            if (!window.fetch) {
+                console.warn('Fetch API not supported, using polyfill');
+            }
+
+            if (!window.Promise) {
+                console.warn('Promise not supported, using polyfill');
+            }
+        });
+    </script>
+
+    <!-- Authentication Script -->
+    <script>
+        // Authentication functions
+        const API_BASE = 'http://localhost:3000/api';
+
+        function getToken() {
+            return localStorage.getItem('neet_token');
+        }
+
+        function getUser() {
+            const user = localStorage.getItem('neet_user');
+            return user ? JSON.parse(user) : null;
+        }
+
+        function isLoggedIn() {
+            return getToken() !== null;
+        }
+
+        function logout() {
+            localStorage.removeItem('neet_token');
+            localStorage.removeItem('neet_user');
+            window.location.href = 'auth.html';
+        }
+
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            const userMenu = document.getElementById('userMenu');
+
+            if (isLoggedIn()) {
+                authButtons.classList.add('hidden');
+                userMenu.classList.remove('hidden');
+            } else {
+                authButtons.classList.remove('hidden');
+                userMenu.classList.add('hidden');
+            }
+        }
+
+        // Initialize auth UI when page loads
+        document.addEventListener('DOMContentLoaded', updateAuthUI);
+    </script>
+</body>
+
+</html>

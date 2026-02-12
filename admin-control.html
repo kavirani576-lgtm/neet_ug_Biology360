@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Control Center - NEET UG Biology 360</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .pulse-red { animation: pulse-red 2s infinite; }
+        @keyframes pulse-red {
+            0%, 100% { background-color: rgba(239, 68, 68, 0.1); }
+            50% { background-color: rgba(239, 68, 68, 0.3); }
+        }
+        .activity-feed { max-height: 400px; overflow-y: auto; }
+        .log-entry { font-family: 'Courier New', monospace; font-size: 12px; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Admin Navigation -->
+    <nav class="bg-gray-800 border-b border-gray-700">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-3">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-shield-alt text-red-500 text-xl"></i>
+                    <span class="text-lg font-bold">CONTROL CENTER</span>
+                    <span class="px-2 py-1 bg-red-600 text-white text-xs rounded-full">ADMIN</span>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <span class="text-green-400" id="serverStatus">
+                        <i class="fas fa-circle text-xs mr-2"></i>System Online
+                    </span>
+                    <span class="text-gray-300" id="adminName">Super Admin</span>
+                    <button onclick="adminLogout()" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm">
+                        <i class="fas fa-sign-out-alt mr-1"></i>Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Control Dashboard -->
+    <div class="container mx-auto px-4 py-6">
+        <!-- Live Stats Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-xs uppercase">Total Users</p>
+                        <p class="text-2xl font-bold text-blue-400" id="totalUsers">0</p>
+                    </div>
+                    <i class="fas fa-users text-blue-500 text-xl opacity-50"></i>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-xs uppercase">Active Now</p>
+                        <p class="text-2xl font-bold text-green-400" id="activeUsers">0</p>
+                    </div>
+                    <i class="fas fa-signal text-green-500 text-xl opacity-50"></i>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-xs uppercase">Today's Activity</p>
+                        <p class="text-2xl font-bold text-yellow-400" id="todayActivity">0</p>
+                    </div>
+                    <i class="fas fa-chart-line text-yellow-500 text-xl opacity-50"></i>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-xs uppercase">Alerts</p>
+                        <p class="text-2xl font-bold text-red-400 pulse-red" id="alerts">0</p>
+                    </div>
+                    <i class="fas fa-exclamation-triangle text-red-500 text-xl opacity-50"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Control Grid -->
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Live Activity Feed -->
+            <div class="md:col-span-2">
+                <div class="bg-gray-800 rounded-lg border border-gray-700">
+                    <div class="p-4 border-b border-gray-700">
+                        <h2 class="text-lg font-bold flex items-center">
+                            <i class="fas fa-stream mr-2 text-blue-400"></i>
+                            Live Activity Feed
+                            <span class="ml-auto text-xs text-gray-400" id="lastUpdate">Just now</span>
+                        </h2>
+                    </div>
+                    <div class="activity-feed p-4" id="activityFeed">
+                        <div class="text-center text-gray-500 py-8">
+                            <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                            <p>Loading live activity...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div>
+                <div class="bg-gray-800 rounded-lg border border-gray-700 mb-6">
+                    <div class="p-4 border-b border-gray-700">
+                        <h2 class="text-lg font-bold">
+                            <i class="fas fa-bolt mr-2 text-yellow-400"></i>
+                            Quick Actions
+                        </h2>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <button onclick="refreshData()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition-colors">
+                            <i class="fas fa-sync mr-2"></i>Refresh All Data
+                        </button>
+                        <button onclick="showAllUsers()" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-colors">
+                            <i class="fas fa-users mr-2"></i>View All Users
+                        </button>
+                        <button onclick="showSystemLogs()" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded transition-colors">
+                            <i class="fas fa-file-alt mr-2"></i>System Logs
+                        </button>
+                        <button onclick="emergencyShutdown()" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded transition-colors">
+                            <i class="fas fa-power-off mr-2"></i>Emergency Shutdown
+                        </button>
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="bg-gray-800 rounded-lg border border-gray-700">
+                    <div class="p-4 border-b border-gray-700">
+                        <h2 class="text-lg font-bold">
+                            <i class="fas fa-server mr-2 text-green-400"></i>
+                            System Status
+                        </h2>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">Database</span>
+                            <span class="text-green-400 text-sm">
+                                <i class="fas fa-check-circle mr-1"></i>Connected
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">API Server</span>
+                            <span class="text-green-400 text-sm">
+                                <i class="fas fa-check-circle mr-1"></i>Running
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">Memory Usage</span>
+                            <span class="text-yellow-400 text-sm">45%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">Uptime</span>
+                            <span class="text-blue-400 text-sm" id="uptime">2h 34m</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Sections -->
+        <div class="grid md:grid-cols-2 gap-6 mt-6">
+            <!-- User Sessions -->
+            <div class="bg-gray-800 rounded-lg border border-gray-700">
+                <div class="p-4 border-b border-gray-700">
+                    <h2 class="text-lg font-bold">
+                        <i class="fas fa-user-clock mr-2 text-purple-400"></i>
+                        Active User Sessions
+                    </h2>
+                </div>
+                <div class="p-4" id="sessionsList">
+                    <div class="text-center text-gray-500 py-4">
+                        <i class="fas fa-spinner fa-spin text-xl mb-2"></i>
+                        <p>Loading sessions...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Logs -->
+            <div class="bg-gray-800 rounded-lg border border-gray-700">
+                <div class="p-4 border-b border-gray-700">
+                    <h2 class="text-lg font-bold">
+                        <i class="fas fa-terminal mr-2 text-orange-400"></i>
+                        Recent System Logs
+                    </h2>
+                </div>
+                <div class="p-4 max-h-96 overflow-y-auto" id="systemLogs">
+                    <div class="text-center text-gray-500 py-4">
+                        <i class="fas fa-spinner fa-spin text-xl mb-2"></i>
+                        <p>Loading logs...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4 border border-gray-700">
+            <h3 class="text-lg font-bold mb-4 text-red-400">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                System Alert
+            </h3>
+            <p id="alertMessage" class="text-gray-300 mb-4"></p>
+            <button onclick="closeAlert()" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded">
+                Understood
+            </button>
+        </div>
+    </div>
+
+    <script src="js/admin-control.js"></script>
+</body>
+</html>

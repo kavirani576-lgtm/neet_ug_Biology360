@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Materials - NEET UG Biology 360</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-dna text-blue-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">NEET UG Biology 360</span>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a href="dashboard.html" class="text-gray-700 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-dashboard mr-2"></i>Dashboard
+                    </a>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-700" id="userDisplayName">Student</span>
+                        <button onclick="logout()" class="px-4 py-2 text-red-600 border border-red-600 rounded-lg hover:bg-red-50 transition-colors">
+                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Access Check -->
+        <div id="accessCheck" class="hidden">
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-8">
+                <div class="flex items-center">
+                    <i class="fas fa-lock text-yellow-600 text-2xl mr-4"></i>
+                    <div>
+                        <h3 class="text-lg font-semibold text-yellow-800">Access Required</h3>
+                        <p class="text-yellow-700">You need to purchase a plan to access these study materials.</p>
+                        <a href="index.html#pricing" class="inline-block mt-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">
+                            View Pricing Plans
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Header -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Study Materials & Notes</h1>
+            <p class="text-gray-600">Access your purchased NEET UG Biology study materials</p>
+        </div>
+
+        <!-- Materials Grid -->
+        <div class="grid md:grid-cols-3 gap-6" id="materialsGrid">
+            <!-- NCERT Notes -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-white">
+                    <i class="fas fa-file-pdf text-4xl mb-3"></i>
+                    <h3 class="text-xl font-bold">NCERT Notes</h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-3 mb-6">
+                        <button onclick="accessContent('ncert-notes', 'chapter-1')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-book-open text-blue-600 mr-3"></i>
+                            Chapter 1: The Living World
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="ncert-notes"></i>
+                        </button>
+                        <button onclick="accessContent('ncert-notes', 'chapter-2')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-book-open text-blue-600 mr-3"></i>
+                            Chapter 2: Biological Classification
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="ncert-notes"></i>
+                        </button>
+                        <button onclick="accessContent('ncert-notes', 'chapter-3')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-book-open text-blue-600 mr-3"></i>
+                            Chapter 3: Plant Kingdom
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="ncert-notes"></i>
+                        </button>
+                        <button onclick="accessContent('ncert-notes', 'chapter-4')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-book-open text-blue-600 mr-3"></i>
+                            Chapter 4: Animal Kingdom
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="ncert-notes"></i>
+                        </button>
+                    </div>
+                    <button onclick="downloadMaterial('ncert-notes')" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-download mr-2"></i>Download All Notes
+                    </button>
+                </div>
+            </div>
+
+            <!-- MCQ Questions -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-green-500 to-green-600 p-6 text-white">
+                    <i class="fas fa-question-circle text-4xl mb-3"></i>
+                    <h3 class="text-xl font-bold">MCQ Questions</h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-3 mb-6">
+                        <button onclick="accessContent('mcq', 'chapter-1')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-list-ol text-green-600 mr-3"></i>
+                            Chapter 1: 50 Questions
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="mcq"></i>
+                        </button>
+                        <button onclick="accessContent('mcq', 'chapter-2')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-list-ol text-green-600 mr-3"></i>
+                            Chapter 2: 50 Questions
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="mcq"></i>
+                        </button>
+                        <button onclick="accessContent('mcq', 'chapter-3')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-list-ol text-green-600 mr-3"></i>
+                            Chapter 3: 50 Questions
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="mcq"></i>
+                        </button>
+                        <button onclick="accessContent('mcq', 'practice')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-clipboard-list text-green-600 mr-3"></i>
+                            Mixed Practice Set
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="mcq"></i>
+                        </button>
+                    </div>
+                    <button onclick="downloadMaterial('mcq')" class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="fas fa-download mr-2"></i>Download All MCQs
+                    </button>
+                </div>
+            </div>
+
+            <!-- Diagram Booklet -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6 text-white">
+                    <i class="fas fa-image text-4xl mb-3"></i>
+                    <h3 class="text-xl font-bold">Diagram Booklet</h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-3 mb-6">
+                        <button onclick="accessContent('diagrams', 'cell-biology')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-microscope text-purple-600 mr-3"></i>
+                            Cell Biology Diagrams
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="diagrams"></i>
+                        </button>
+                        <button onclick="accessContent('diagrams', 'plant-morphology')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-leaf text-purple-600 mr-3"></i>
+                            Plant Morphology
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="diagrams"></i>
+                        </button>
+                        <button onclick="accessContent('diagrams', 'human-anatomy')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-user text-purple-600 mr-3"></i>
+                            Human Anatomy
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="diagrams"></i>
+                        </button>
+                        <button onclick="accessContent('diagrams', 'ecology')" class="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors content-item">
+                            <i class="fas fa-globe text-purple-600 mr-3"></i>
+                            Ecology & Environment
+                            <i class="fas fa-lock text-gray-400 ml-auto" data-access="diagrams"></i>
+                        </button>
+                    </div>
+                    <button onclick="downloadMaterial('diagrams')" class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                        <i class="fas fa-download mr-2"></i>Download All Diagrams
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Viewer Modal -->
+    <div id="contentModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 id="contentTitle" class="text-2xl font-bold text-gray-800">Content Title</h2>
+                    <button onclick="closeContentModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="contentBody" class="prose max-w-none">
+                    <!-- Content will be loaded here -->
+                </div>
+                <div class="mt-6 flex gap-3">
+                    <button onclick="downloadCurrentContent()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-download mr-2"></i>Download
+                    </button>
+                    <button onclick="printContent()" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
+                        <i class="fas fa-print mr-2"></i>Print
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/content-access.js"></script>
+</body>
+</html>

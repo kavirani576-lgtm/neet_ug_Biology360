@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Test - NEET UG Biology 360</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Test Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <button onclick="exitTest()" class="text-gray-600 hover:text-red-600 transition-colors">
+                        <i class="fas fa-times-circle text-xl"></i>
+                    </button>
+                    <h1 class="text-xl font-bold text-gray-800">NEET Biology Mock Test</h1>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">Question</p>
+                        <p class="font-bold text-blue-600"><span id="currentQuestion">1</span> / <span id="totalQuestions">90</span></p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">Time Left</p>
+                        <p class="font-bold text-red-600" id="timer">02:00:00</p>
+                    </div>
+                    <button onclick="submitTest()" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="fas fa-paper-plane mr-2"></i>Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Test Container -->
+    <div class="container mx-auto px-4 py-6">
+        <div class="grid lg:grid-cols-4 gap-6">
+            <!-- Question Area -->
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-lg shadow-lg p-6" id="questionContainer">
+                    <!-- Question will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-4">
+                <!-- Question Palette -->
+                <div class="bg-white rounded-lg shadow-lg p-4">
+                    <h3 class="font-bold text-gray-800 mb-3">Question Palette</h3>
+                    <div class="grid grid-cols-5 gap-2" id="questionPalette">
+                        <!-- Question numbers will be generated here -->
+                    </div>
+                    <div class="mt-4 space-y-2 text-sm">
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-blue-600 rounded mr-2"></div>
+                            <span>Not Answered</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-green-600 rounded mr-2"></div>
+                            <span>Answered</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-orange-600 rounded mr-2"></div>
+                            <span>Marked for Review</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test Instructions -->
+                <div class="bg-white rounded-lg shadow-lg p-4">
+                    <h3 class="font-bold text-gray-800 mb-3">Instructions</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Each question carries 4 marks</li>
+                        <li>• -1 mark for wrong answer</li>
+                        <li>• No negative marking for unattempted</li>
+                        <li>• Mark questions for review if unsure</li>
+                        <li>• Submit before time runs out</li>
+                    </ul>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="bg-white rounded-lg shadow-lg p-4">
+                    <h3 class="font-bold text-gray-800 mb-3">Progress</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span>Answered:</span>
+                            <span class="font-bold text-green-600" id="answeredCount">0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>Not Answered:</span>
+                            <span class="font-bold text-blue-600" id="notAnsweredCount">90</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>Marked:</span>
+                            <span class="font-bold text-orange-600" id="markedCount">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Confirmation Modal -->
+    <div id="submitModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-md w-full">
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Submit Test?</h3>
+                <p class="text-gray-600 mb-6">Are you sure you want to submit your test? You cannot change your answers after submission.</p>
+                
+                <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <span class="text-gray-600">Answered:</span>
+                            <span class="font-bold text-green-600 ml-2" id="modalAnswered">0</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">Not Answered:</span>
+                            <span class="font-bold text-blue-600 ml-2" id="modalNotAnswered">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-3">
+                    <button onclick="confirmSubmit()" class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        Yes, Submit
+                    </button>
+                    <button onclick="closeSubmitModal()" class="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">
+                        Continue Test
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div id="resultsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Test Results</h3>
+                
+                <div class="text-center mb-6">
+                    <div class="text-5xl font-bold text-blue-600 mb-2" id="scorePercentage">0%</div>
+                    <p class="text-gray-600">Your Score</p>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="text-center p-4 bg-green-50 rounded-lg">
+                        <p class="text-2xl font-bold text-green-600" id="correctAnswers">0</p>
+                        <p class="text-sm text-gray-600">Correct</p>
+                    </div>
+                    <div class="text-center p-4 bg-red-50 rounded-lg">
+                        <p class="text-2xl font-bold text-red-600" id="wrongAnswers">0</p>
+                        <p class="text-sm text-gray-600">Wrong</p>
+                    </div>
+                    <div class="text-center p-4 bg-blue-50 rounded-lg">
+                        <p class="text-2xl font-bold text-blue-600" id="unattempted">0</p>
+                        <p class="text-sm text-gray-600">Unattempted</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                    <h4 class="font-semibold mb-2">Performance Analysis</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Total Marks:</span>
+                            <span class="font-bold" id="totalMarks">0/360</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Accuracy:</span>
+                            <span class="font-bold" id="accuracy">0%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Time Taken:</span>
+                            <span class="font-bold" id="timeTaken">00:00:00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-3">
+                    <button onclick="viewSolutions()" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-eye mr-2"></i>View Solutions
+                    </button>
+                    <button onclick="retakeTest()" class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        <i class="fas fa-redo mr-2"></i>Retake Test
+                    </button>
+                    <button onclick="goToDashboard()" class="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                        <i class="fas fa-home mr-2"></i>Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/mock-test.js"></script>
+</body>
+</html>
